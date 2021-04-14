@@ -62,15 +62,14 @@ plot_vf <- function(Fn) {
 
 # Function to plot vector fields and approximate solutions for a linear
 # system satisfying a certain set of eigenvalues 
-plot_vf_evals <- function(e_vals, full_rank = T) {
+plot_vf_evals <- function(e_vals) {
   # Gradient function
   Fn <- function(x, y) {
     if (is.complex(e_vals)) {
       H <- 1 / sqrt(2) * cbind(c(1i, 1), c(1, 1i))
       Re(t(H %*% diag(e_vals) %*% t(Conj(H)) %*% rbind(x, y)))
     }
-    else if (full_rank) t(diag(e_vals) %*% rbind(x, y))
-    else t( diag(e_vals) %*% rbind(x, y))
+    else t(diag(e_vals) %*% rbind(x, y))
   }
   
   plot_vf(Fn)
@@ -83,20 +82,28 @@ par(mfrow = c(2, 2), mar = c(0, 0, 0, 0))
 plot_vf_evals(c(0, 0))
 plot_vf_evals(c(1, 0))
 plot_vf_evals(c(-1, 0))
+plot_vf_evals(c(0, 1))
+plot_vf_evals(c(0, -1))
 plot_vf_evals(c(1, 1))
 plot_vf_evals(c(-1, -1))
 plot_vf_evals(c(1, -1))
+plot_vf_evals(c(-1, 1))
 plot_vf_evals(c(1, 2))
 plot_vf_evals(c(-1, -2))
 plot_vf_evals(c(1i, -1i))
+plot_vf_evals(c(-1i, 1i))
 plot_vf_evals(c(1 + 1i, 1 - 1i))
+plot_vf_evals(c(1 - 1i, 1 + 1i))
 plot_vf_evals(c(-1 + 1i, -1 - 1i))
+plot_vf_evals(c(-1 - 1i, -1 + 1i))
 plot_vf(Fn = function(x, y) cbind(2 * x + y, -x))
+plot_vf(Fn = function(x, y) cbind(2 * x - y, x))
 ```
 
 The last case is a degenerate source, there is one repeated eigenvalue, and one linearly independent eigenvector, so there is no spectral decomposition.  I'm not sure how to specify these matrices in general.
 
 ```{r}
+# Plot a nonlinear 2D system of differential equations
 plot_vf(Fn = function(x, y) cbind(sin(x^2 + y^2), cos(x + y)))
 ```
 
