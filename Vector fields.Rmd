@@ -105,6 +105,10 @@ The last case is a degenerate source, there is one repeated eigenvalue, and one 
 ```{r}
 # Plot a nonlinear 2D system of differential equations
 plot_vf(Fn = function(x, y) cbind(sin(x^2 + y^2), cos(x + y)))
+
+# This is the one from 3B1B's first vid on DE's, describing a pendulum with
+# angular displacement on the x axis and angular velocity on the y axis.
+plot_vf(Fn = function(x, y) cbind(y/2, -y/2 - sin(5 * x)))
 ```
 
 
